@@ -152,7 +152,7 @@ EXAMPLE
 
 ### Add a job (crontab)
 
-As root use crontab to register a new job...
+As root user open the crontab editor to create a new job...
 
 ```
 crontab -e
