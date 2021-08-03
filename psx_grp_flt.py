@@ -191,28 +191,27 @@ if __name__ == "__main__":
     for mbr_uid, psx_grps_dns in mbr_uids_n_psx_grps.iteritems():
         mbr_uid_info = psx_grp_flt.get_mbr_uid_sts_n_data(mbr_uid)
         if mbr_uid_info["mbr_uid_found"]:
-            if mbr_uid == "edulucio" or mbr_uid == "bleno":
 
-                # NOTE: The object class "posixGrpFlt" is required to be use "pgMemberOf"
-                # attribute. This object class will be added if the user does not
-                # have one. By Questor
-                if not mbr_uid_info["has_posixgrpflt"]:
-                    psx_grp_flt.modify_cn(mbr_uid_cn=mbr_uid_info["mbr_uid_cn"],
-                            attrs_to_modify={
-                                "objectClass": [(ldap3.MODIFY_ADD, ["posixGrpFlt"])]
-                            })
+            # NOTE: The object class "posixGrpFlt" is required to be use "pgMemberOf"
+            # attribute. This object class will be added if the user does not
+            # have one. By Questor
+            if not mbr_uid_info["has_posixgrpflt"]:
+                psx_grp_flt.modify_cn(mbr_uid_cn=mbr_uid_info["mbr_uid_cn"],
+                        attrs_to_modify={
+                            "objectClass": [(ldap3.MODIFY_ADD, ["posixGrpFlt"])]
+                        })
 
-                # NOTE: Check if update the person's groups ("pgmemberof") list is
-                # needed. Avoids redundant update processes causing performance problems
-                # and creating risks to the OpenLDAP database"s integrity.By Questor
-                if psx_grp_flt.comp_two_lsts(mbr_uid_info["pgmemberof"], psx_grps_dns):
-                    psx_grp_flt.modify_cn(mbr_uid_cn=mbr_uid_info["mbr_uid_cn"],
-                            attrs_to_modify={
-                                "pgMemberOf": [(ldap3.MODIFY_REPLACE, psx_grps_dns)]
-                            })
-                    print "Synced \"pgMemberOf\" attribute for the \"%s\" uid!" % (mbr_uid)
-                else:
-                    print "The \"pgMemberOf\" attribute is up to date for the \"%s\" uid!" % (mbr_uid)
+            # NOTE: Check if update the person's groups ("pgmemberof") list is
+            # needed. Avoids redundant update processes causing performance problems
+            # and creating risks to the OpenLDAP database"s integrity.By Questor
+            if psx_grp_flt.comp_two_lsts(mbr_uid_info["pgmemberof"], psx_grps_dns):
+                psx_grp_flt.modify_cn(mbr_uid_cn=mbr_uid_info["mbr_uid_cn"],
+                        attrs_to_modify={
+                            "pgMemberOf": [(ldap3.MODIFY_REPLACE, psx_grps_dns)]
+                        })
+                print "Synced \"pgMemberOf\" attribute for the \"%s\" uid!" % (mbr_uid)
+            else:
+                print "The \"pgMemberOf\" attribute is up to date for the \"%s\" uid!" % (mbr_uid)
 
         else:
             print "The \"%s\" uid does not have the object class \"inetOrgPerson\" or \"posixAccount\", so not syncing!" % mbr_uid

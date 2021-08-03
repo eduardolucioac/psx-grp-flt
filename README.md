@@ -32,7 +32,7 @@ Queries all ***posixGroup*** objects for their ***memberUid*** field, then aggre
 
 ## Installation
 
-Modify your OpenLDAP Schema to support the new operational ***pgMemberOf*** attribute and made it available to your ***person*** (users) object class. So, we're going to define this new attribute type that is largely identical to the ***memberOf*** attribute, and a new auxiliary object class (***obPerson***???? ***posixGrpFlt***) that allows it...
+Modify your OpenLDAP Schema to support the new operational ***pgMemberOf*** attribute and made it available to your ***person*** (users) object class. So, we're going to define this new attribute type that is largely identical to the ***memberOf*** attribute, and a new auxiliary object class (***posixGrpFlt***) that allows it...
 
 ```
 ldapadd -Y EXTERNAL -H ldapi:// <<EOF
@@ -53,6 +53,8 @@ EOF
 
 **IMPORTANT:** If you use replication for OpenLDAP, you will probably have to run the above command also on replications (consumers) or conforming the strategy you used to replicate your OpenLDAP.
 [Ref(s).: https://www.openldap.org/doc/admin24/replication.html ]
+
+**NOTE:** supplGrpFlt - Supplementary Group Filter; posixGrpFlt - Posix Group Filter; pgMemberOf - Posix Group Member Of.
 
 ### Install Python 2.7 needed package
 
