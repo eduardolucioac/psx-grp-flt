@@ -1,6 +1,6 @@
 # psx-grp-flt - user's posixGroup memberships against pgMemberOf (memberOf)
 
-A simple Python 2.7 script that stores the users ***posixGroup*** memberships in the ***pgMemberOf*** (***memberOf***) attribute. The goal is to allow search filters like below...
+A simple Python 2.7 script that stores each user's posixGroup associations in their pgMemberOf (memberOf) attribute. The purpose is to enable search filters like below...
 
 MODEL
 
