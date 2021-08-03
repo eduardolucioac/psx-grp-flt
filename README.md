@@ -61,7 +61,6 @@ Install and pip 2.7 (Python 2.7)...
 **NOTE:** Commands for Centos 7. Adjust to your reality.
 
 ```
-# yum install -y python-setuptools # Needed?
 yum install -y python-pip
 ```
 
