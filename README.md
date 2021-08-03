@@ -24,7 +24,8 @@ This script is useful for cases where we already have an OpenLDAP installed and 
 
 **IMPORTANT:** We recommend backing up your OpenLDAP data before testing our solution.
 
-Ref(s).: 
+[Ref(s).: http://blog.oddbit.com/post/2013-07-22-generating-a-membero/ ,
+https://github.com/DeBortoliWines/ldap-sync-memberof ]
 
 ## How It Works
 
