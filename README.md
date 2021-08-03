@@ -107,10 +107,11 @@ EOF
 Usage instructions...
 
 ```
-[root@ldap_provider psx-grp-flt]# /bin/python2.7 /usr/local/psx-grp-flt/psx_grp_flt.py.py --help
-usage: psx_grp_flt.py.py [-h] -D BINDDN -y FILE -H URI -b BASEDN -g PERSONS_OU
+[root@ldap_provider psx-grp-flt]# /bin/python2.7 /usr/local/psx-grp-flt/psx_grp_flt.py --help
+usage: psx_grp_flt.py [-h] -D BINDDN -y FILE -H URI -b BASEDN -g PERSONS_OU
 
-Syncs memberOf attribute onto users (inetOrgPerson) that are in posixGroups.
+A simple Python 2.7 script that stores each user's posixGroup associations in
+their pgMemberOf (memberOf) attribute.
 
 optional arguments:
   -h, --help            show this help message and exit

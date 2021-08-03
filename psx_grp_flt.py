@@ -179,10 +179,8 @@ class PsxGrpFlt():
             return True
 
 if __name__ == "__main__":
-    # parser = argparse.ArgumentParser(description="""Syncs pgMemberOf attribute onto
-    # users that are in posixGroups.""")
-    parser = argparse.ArgumentParser(description="A simple Python 2.7 script that\
-stores each user's posixGroup associations in their pgMemberOf (memberOf) attribute.")
+    parser = argparse.ArgumentParser(description="A simple Python 2.7 script that"\
+" stores each user's posixGroup associations in their pgMemberOf (memberOf) attribute.")
 
     # NOTE: Get the CLI args. By Questor
     parser.add_argument(
