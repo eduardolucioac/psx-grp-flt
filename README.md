@@ -52,7 +52,7 @@ olcObjectClasses: ( 1.1.3.4.1.2.1.1
 EOF
 ```
 
-**IMPORTANT:** If you use replication for OpenLDAP, you will probably have to run the above command also on replications (consumers) or conforming the strategy you used to replicate your OpenLDAP.
+**IMPORTANT:** If you use replication for OpenLDAP, you will probably have to run the above command also on the replications (consumers) or conforming the strategy you used to replicate your OpenLDAP.
 [Ref(s).: https://www.openldap.org/doc/admin24/replication.html ]
 
 **NOTE:** supplGrpFlt - Supplementary Group Filter; posixGrpFlt - Posix Group Filter; pgMemberOf - Posix Group Member Of.
