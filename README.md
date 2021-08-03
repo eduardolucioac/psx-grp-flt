@@ -59,7 +59,7 @@ EOF
 
 ### Install Python 2.7 needed package
 
-Install and pip 2.7 (Python 2.7)...
+Install pip 2.7 (Python 2.7)...
 
 **NOTE:** Commands for Centos 7. Adjust to your reality.
 
