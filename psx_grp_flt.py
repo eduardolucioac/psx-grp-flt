@@ -78,8 +78,8 @@ class PsxGrpFlt():
 
         Returns:
             dict: "mbr_uid_found" - If the memberUid (uid) was found; "mbr_uid_cn"
-            - cn linked to memberUid (uid); "has_obperson" - If the memberUid (uid)
-            has already the obPerson "olcObjectClasses"; "pgmemberof" - pgMemberOf
+            - cn linked to memberUid (uid); "has_posixgrpflt" - If the memberUid (uid)
+            has already the posixGrpFlt "olcObjectClasses"; "pgmemberof" - pgMemberOf
             values from the memberUid (uid).
         """
 
@@ -91,19 +91,19 @@ class PsxGrpFlt():
 
         mbr_uid_found = len(self.conn.entries) > 0
         mbr_uid_cn = ""
-        has_obperson = True
+        has_posixgrpflt = True
         pgmemberof = []
         if mbr_uid_found:
             mbr_uid_cn = self.conn.entries[0]["cn"].value
-            if not "obPerson" in self.conn.entries[0]["objectClass"].values:
-                has_obperson = False
+            if not "posixGrpFlt" in self.conn.entries[0]["objectClass"].values:
+                has_posixgrpflt = False
 
             if "pgMemberOf" in self.conn.entries[0]:
                 pgmemberof = self.conn.entries[0]["pgMemberOf"].values
 
         return {"mbr_uid_found": mbr_uid_found,
                 "mbr_uid_cn": mbr_uid_cn,
-                "has_obperson": has_obperson,
+                "has_posixgrpflt": has_posixgrpflt,
                 "pgmemberof": pgmemberof}
 
     # def modify_cn(self, mbr_uid_cn, attrs_to_modify):
@@ -193,13 +193,13 @@ if __name__ == "__main__":
         if mbr_uid_info["mbr_uid_found"]:
             if mbr_uid == "edulucio" or mbr_uid == "bleno":
 
-                # NOTE: The object class "obPerson" is required to be use "pgMemberOf"
+                # NOTE: The object class "posixGrpFlt" is required to be use "pgMemberOf"
                 # attribute. This object class will be added if the user does not
                 # have one. By Questor
-                if not mbr_uid_info["has_obperson"]:
+                if not mbr_uid_info["has_posixgrpflt"]:
                     psx_grp_flt.modify_cn(mbr_uid_cn=mbr_uid_info["mbr_uid_cn"],
                             attrs_to_modify={
-                                "objectClass": [(ldap3.MODIFY_ADD, ["obPerson"])]
+                                "objectClass": [(ldap3.MODIFY_ADD, ["posixGrpFlt"])]
                             })
 
                 # NOTE: Check if update the person's groups ("pgmemberof") list is

@@ -1,6 +1,6 @@
-# psx-grp-flt - user's "posixGroup" memberships against "pgMemberOf" ("memberOf")
+# psx-grp-flt - user's posixGroup memberships against pgMemberOf (memberOf)
 
-A simple Python 2.7 script that stores a user's "posixGroup" memberships in the "pgMemberOf" ("memberOf") attribute. The goal is to allow search filters like below...
+A simple Python 2.7 script that stores a user's ***posixGroup*** memberships in the ***pgMemberOf*** (***memberOf***) attribute. The goal is to allow search filters like below...
 
 MODEL
 
@@ -22,39 +22,37 @@ ldapsearch -x -H '<OPENLDAP_URI>' -b '<PERSONS_OU>,<BASE_DN>' \
 
 ## How It Works
 
-Queries all "posixGroup" objects for their "memberUid" field, then aggregates all the results together.
-
-Then populates the "pgMemberOf" attribute of each listed user in the aggregation.
+Queries all ***posixGroup*** objects for their ***memberUid*** field, then aggregates all the results together. Then populates the ***pgMemberOf*** attribute of each listed user in the aggregation.
 
 ## Installation
 
-Modify your OpenLDAP Schema to support the new operational "pgMemberOf" attribute and made it available to your "user"/"person" object class. So, we're going to define this new attribute type that is largely identical to the "memberOf" attribute, and a new auxiliary object class ("obPerson" "posixGrpFlt") that allows it...
+Modify your OpenLDAP Schema to support the new operational ***pgMemberOf*** attribute and made it available to your ***person*** (users) object class. So, we're going to define this new attribute type that is largely identical to the ***memberOf*** attribute, and a new auxiliary object class (***obPerson***???? ***posixGrpFlt***) that allows it...
 
 ```
 ldapadd -Y EXTERNAL -H ldapi:// <<EOF
 dn: cn=supplGrpFlt,cn=schema,cn=config
 objectClass: olcSchemaConfig
 cn: supplGrpFlt
-olcAttributeTypes: ( 1.1.3.5.1.1.1.1
+olcAttributeTypes: ( 1.1.3.4.1.1.1.1
     NAME 'pgMemberOf'
     DESC 'Distinguished name of a (posix) group of which the object is a member'
     EQUALITY distinguishedNameMatch
     SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 )
-olcObjectClasses: ( 1.1.3.5.1.2.1.1
+olcObjectClasses: ( 1.1.3.4.1.2.1.1
     NAME 'posixGrpFlt'
     DESC 'Posix group supplementary filter'
     AUXILIARY MAY ( pgMemberOf ) )
 EOF
 ```
 
-IMPORTANT: If you use replication for OpenLDAP, you will probably have to run the above command also on replications (consumers) or conforming the strategy you used to replicate your OpenLDAP.
+**IMPORTANT:** If you use replication for OpenLDAP, you will probably have to run the above command also on replications (consumers) or conforming the strategy you used to replicate your OpenLDAP.
 [Ref(s).: https://www.openldap.org/doc/admin24/replication.html ]
 
 ### Install Python 2.7 needed package
 
 Install and pip 2.7 (Python 2.7)...
 
-NOTE: Commands for Centos 7. Adjust to your reality.
+**NOTE:** Commands for Centos 7. Adjust to your reality.
 
 ```
 # yum install -y python-setuptools # Needed?
@@ -63,7 +61,7 @@ yum install -y python-pip
 
 ### Install psx-grp-flt
 
-It will install the git package, download the "psx-grp-flt" repository, move it to a proper location and install its Python 2.7 dependency...
+It will install the git package, download the *psx-grp-flt* repository, move it to a proper location and install its Python 2.7 dependency...
 
 ```
 yum install -y git-core
@@ -132,7 +130,7 @@ As root use crontab to register a new job...
 crontab -e
 ```
 
-NOTE: Behaves like vi/vim.
+**NOTE:** Behaves like vi/vim.
 
 ...and add the line...
 
@@ -148,9 +146,9 @@ EXAMPLE
 */15 * * * * /bin/python2.7 /usr/local/psx-grp-flt/psx_grp_flt.py -D "cn=admin,dc=domain,dc=abc,dc=de" -y "/usr/local/ldap-sync-memberof/ldap_admin" -H "ldap://127.0.0.1:389" -b "dc=domain,dc=abc,dc=de" -g "ou=persons"
 ```
 
-NOTE: In the example above the script runs every 15 minutes.
+**NOTE:** In the example above the script runs every 15 minutes.
 
-IMPORTANT: Since crontab does not have the correct shell variables, we need to add the current user (root) path definition to the crontab jobs. In this way add (if it doesn't already exist) as the first line (before any scheduling) the output of the command below...
+**IMPORTANT:** Since crontab does not have the correct shell variables, we need to add the current user (root) path definition to the crontab jobs. In this way add (if it doesn't already exist) as the first line (before any scheduling) the output of the command below...
 
 ```
 echo "PATH=$PATH"
