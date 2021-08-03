@@ -69,7 +69,7 @@ yum install -y python-pip
 
 ### Install psx-grp-flt
 
-It will install the git package, download the *psx-grp-flt* repository, move it to a proper location and install its Python 2.7 dependency...
+Install the git package, download the *psx-grp-flt* repository, move it to a proper location and install its Python 2.7 dependency...
 
 ```
 yum install -y git-core
