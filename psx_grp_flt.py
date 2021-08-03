@@ -106,7 +106,6 @@ class PsxGrpFlt():
                 "has_posixgrpflt": has_posixgrpflt,
                 "pgmemberof": pgmemberof}
 
-    # def modify_cn(self, mbr_uid_cn, attrs_to_modify):
     def modify_cn(self, object_cn, attrs_to_modify):
         """Modifies a cn from the Base dn.
 
@@ -196,7 +195,7 @@ if __name__ == "__main__":
             # attribute. This object class will be added if the user does not
             # have one. By Questor
             if not mbr_uid_info["has_posixgrpflt"]:
-                psx_grp_flt.modify_cn(mbr_uid_cn=mbr_uid_info["mbr_uid_cn"],
+                psx_grp_flt.modify_cn(object_cn=mbr_uid_info["mbr_uid_cn"],
                         attrs_to_modify={
                             "objectClass": [(ldap3.MODIFY_ADD, ["posixGrpFlt"])]
                         })
@@ -205,7 +204,7 @@ if __name__ == "__main__":
             # needed. Avoids redundant update processes causing performance problems
             # and creating risks to the OpenLDAP database"s integrity.By Questor
             if psx_grp_flt.comp_two_lsts(mbr_uid_info["pgmemberof"], psx_grps_dns):
-                psx_grp_flt.modify_cn(mbr_uid_cn=mbr_uid_info["mbr_uid_cn"],
+                psx_grp_flt.modify_cn(object_cn=mbr_uid_info["mbr_uid_cn"],
                         attrs_to_modify={
                             "pgMemberOf": [(ldap3.MODIFY_REPLACE, psx_grps_dns)]
                         })
