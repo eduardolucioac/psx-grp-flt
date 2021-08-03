@@ -16,7 +16,7 @@ EXAMPLE
 ```
 ldapsearch -x -H '<OPENLDAP_URI>' -b '<PERSONS_OU>,<BASE_DN>' \
     -D '<ADM_USER_DN>' \
-    -w '<PASSWORD>' \
+    -w '<ADM_USER_PASSWORD>' \
     '(&(pgMemberOf=cn=<PSX_GROUP_CN>,<GROUPS_OU>,<BASE_DN)(uid=<PERSON_UID>))'
 ```
 
@@ -25,7 +25,7 @@ This script is useful for cases where we already have an OpenLDAP installed and 
 **IMPORTANT:** We recommend backing up your OpenLDAP data before testing our solution.
 
 [Ref(s).: http://blog.oddbit.com/post/2013-07-22-generating-a-membero/ ,
-https://github.com/DeBortoliWines/ldap-sync-memberof ]
+https://github.com/DeBortoliWines/psx-grp-flt ]
 
 ## How It Works
 
@@ -80,6 +80,26 @@ cd /usr/local/psx-grp-flt
 pip install ldap3==2.4
 ```
 
+### Create the password file
+
+Create the password file that has the password in plaintext for the given user...
+
+MODEL
+
+```
+tee "/usr/local/psx-grp-flt/ldap_admin" << EOF
+<ADM_USER_PASSWORD>
+EOF
+```
+
+EXAMPLE
+
+```
+tee "/usr/local/psx-grp-flt/ldap_admin" << EOF
+mySecretValue
+EOF
+```
+
 ## Usage
 
 ### Instructions
@@ -114,7 +134,7 @@ MODEL
 
 ```
 /bin/python2.7 /usr/local/psx-grp-flt/psx_grp_flt.py -D "<ADM_USER_DN>" \
-    -y "<PASSWORD_FILE_PATH>" \
+    -y "<ADM_USER_PWD_FILE_PATH>" \
     -H "<OPENLDAP_URI>" \
     -b "<BASE_DN>" \
     -g "<PERSONS_OU>"
@@ -124,7 +144,7 @@ EXAMPLE
 
 ```
 /bin/python2.7 /usr/local/psx-grp-flt/psx_grp_flt.py -D "cn=admin,dc=domain,dc=abc,dc=de" \
-    -y "/usr/local/ldap-sync-memberof/ldap_admin" \
+    -y "/usr/local/psx-grp-flt/ldap_admin" \
     -H "ldap://127.0.0.1:389" \
     -b "dc=domain,dc=abc,dc=de" \
     -g "ou=persons"
@@ -145,13 +165,13 @@ crontab -e
 MODEL
 
 ```
-*/15 * * * * /bin/python2.7 /usr/local/psx-grp-flt/psx_grp_flt.py -D "<ADM_USER_DN>" -y "<PASSWORD_FILE_PATH>" -H "<OPENLDAP_URI>" -b "<BASE_DN>" -g "<PERSONS_OU>"
+*/15 * * * * /bin/python2.7 /usr/local/psx-grp-flt/psx_grp_flt.py -D "<ADM_USER_DN>" -y "<ADM_USER_PWD_FILE_PATH>" -H "<OPENLDAP_URI>" -b "<BASE_DN>" -g "<PERSONS_OU>"
 ```
 
 EXAMPLE
 
 ```
-*/15 * * * * /bin/python2.7 /usr/local/psx-grp-flt/psx_grp_flt.py -D "cn=admin,dc=domain,dc=abc,dc=de" -y "/usr/local/ldap-sync-memberof/ldap_admin" -H "ldap://127.0.0.1:389" -b "dc=domain,dc=abc,dc=de" -g "ou=persons"
+*/15 * * * * /bin/python2.7 /usr/local/psx-grp-flt/psx_grp_flt.py -D "cn=admin,dc=domain,dc=abc,dc=de" -y "/usr/local/psx-grp-flt/ldap_admin" -H "ldap://127.0.0.1:389" -b "dc=domain,dc=abc,dc=de" -g "ou=persons"
 ```
 
 **NOTE:** In the example above the script runs every 15 minutes.
