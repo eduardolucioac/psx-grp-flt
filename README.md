@@ -61,7 +61,7 @@ EOF
 
 Install pip 2.7 (Python 2.7)...
 
-**NOTE:** Commands for Centos 7. Adjust to your reality.
+**NOTE:** Commands for Centos 7. Adjust to your reality if necessary.
 
 ```
 yum install -y python-pip
