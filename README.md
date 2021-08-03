@@ -20,6 +20,12 @@ ldapsearch -x -H '<OPENLDAP_URI>' -b '<PERSONS_OU>,<BASE_DN>' \
     '(&(pgMemberOf=cn=<PSX_GROUP_CN>,<GROUPS_OU>,<BASE_DN)(uid=<PERSON_UID>))'
 ```
 
+This script is useful for cases where we already have an OpenLDAP installed and we want to make filters available for ***Posix Groups*** that already exists in a very simple way and without creating new types of groups. Also useful when unable to install overlays or when this process is too laborious or risky.
+
+**IMPORTANT:** We recommend backing up your OpenLDAP data before testing our solution.
+
+Ref(s).: 
+
 ## How It Works
 
 Queries all ***posixGroup*** objects for their ***memberUid*** field, then aggregates all the results together. Then populates the ***pgMemberOf*** attribute of each listed user in the aggregation.
@@ -168,4 +174,4 @@ Licensed under The 3-Clause BSD License ( https://opensource.org/licenses/BSD-3-
 
 Create a service and a logs scheme.
 
-Thanks! =D
+**Thanks! =D**
