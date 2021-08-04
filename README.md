@@ -1,6 +1,6 @@
 # psx-grp-flt - user's posixGroup memberships against pgMemberOf (memberOf)
 
-A simple Python 2.7 script that stores each user's posixGroup associations in their pgMemberOf (memberOf) attribute. The purpose is to enable search filters like below...
+A simple Python 2.7 script that stores each user's ***posixGroup*** (***POSIX Group***) associations in their ***pgMemberOf*** (***memberOf***) attribute. The purpose is to enable search filters like below...
 
 MODEL
 
@@ -20,7 +20,7 @@ ldapsearch -x -H '<OPENLDAP_URI>' -b '<PERSONS_OU>,<BASE_DN>' \
     '(&(pgMemberOf=cn=<PSX_GROUP_CN>,<GROUPS_OU>,<BASE_DN)(uid=<PERSON_UID>))'
 ```
 
-This script is useful for cases where we already have an OpenLDAP installed and we want to make filters available for ***Posix Groups*** that already exists in a very simple way and without creating new types of groups. Also useful when unable to install overlays or when this process is too laborious or risky.
+This script is useful for cases where we already have an OpenLDAP installed and we want to make filters available for ***POSIX Groups*** that already exists in a very simple way and without creating new types of groups. Also useful when unable to install overlays or when this process is too laborious or risky.
 
 **IMPORTANT:** We recommend backing up your OpenLDAP data before testing our solution.
 
@@ -55,7 +55,7 @@ EOF
 **IMPORTANT:** If you use replication for OpenLDAP, you will probably have to run the above command also on the replications (consumers) or conforming the strategy you used to replicate your OpenLDAP.
 [Ref(s).: https://www.openldap.org/doc/admin24/replication.html ]
 
-**NOTE:** supplGrpFlt - Supplementary Group Filter; posixGrpFlt - Posix Group Filter; pgMemberOf - Posix Group Member Of.
+**NOTE:** supplGrpFlt - Supplementary Group Filter; posixGrpFlt - POSIX Group Filter; pgMemberOf - POSIX Group Member Of.
 
 ### Install Python 2.7 needed package
 
