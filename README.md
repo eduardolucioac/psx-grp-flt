@@ -5,19 +5,19 @@ A simple Python 2.7 script that stores each user's ***posixGroup*** (***POSIX Gr
 MODEL
 
 ```
-ldapsearch -x -H 'ldap://127.0.0.1:389' -b 'ou=persons,dc=domain,dc=abc,dc=de' \
-    -D 'cn=admin,dc=domain,dc=abc,dc=de' \
-    -w 'mySecretValue' \
-    '(&(pgMemberOf=cn=certaingroup,ou=groups,dc=domain,dc=abc,dc=de)(uid=certainuid))'
+ldapsearch -x -H '<OPENLDAP_URI>' -b '<PERSONS_OU>,<BASE_DN>' \
+    -D '<ADM_USER_DN>' \
+    -w '<ADM_USER_PASSWORD>' \
+    '(&(pgMemberOf=cn=<PSX_GROUP_CN>,<GROUPS_OU>,<BASE_DN)(uid=<PERSON_UID>))'
 ```
 
 EXAMPLE
 
 ```
-ldapsearch -x -H '<OPENLDAP_URI>' -b '<PERSONS_OU>,<BASE_DN>' \
-    -D '<ADM_USER_DN>' \
-    -w '<ADM_USER_PASSWORD>' \
-    '(&(pgMemberOf=cn=<PSX_GROUP_CN>,<GROUPS_OU>,<BASE_DN)(uid=<PERSON_UID>))'
+ldapsearch -x -H 'ldap://127.0.0.1:389' -b 'ou=persons,dc=domain,dc=abc,dc=de' \
+    -D 'cn=admin,dc=domain,dc=abc,dc=de' \
+    -w 'mySecretValue' \
+    '(&(pgMemberOf=cn=certaingroup,ou=groups,dc=domain,dc=abc,dc=de)(uid=certainuid))'
 ```
 
 This script is useful for cases where we already have an OpenLDAP installed and we want to make filters available for ***POSIX Groups*** that already exists in a very simple way and without creating new types of groups. Also useful when unable to install overlays or when this process is too laborious or risky.
