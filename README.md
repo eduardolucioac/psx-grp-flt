@@ -53,6 +53,7 @@ EOF
 ```
 
 **IMPORTANT:** If you use replication for OpenLDAP, you will probably have to run the above command also on the replications (consumers) or conforming the strategy you used to replicate your OpenLDAP.
+
 [Ref(s).: https://www.openldap.org/doc/admin24/replication.html ]
 
 **NOTE:** supplGrpFlt - Supplementary Group Filter; posixGrpFlt - POSIX Group Filter; pgMemberOf - POSIX Group Member Of.
@@ -203,6 +204,7 @@ Create a service and a logs scheme.
 
 psx-grp-flt 🄯 BSD-3-Clause  
 Eduardo Lúcio Amorim Costa  
-Brazil-DF
+Brazil-DF  
+https://www.linkedin.com/in/eduardo-software-livre/
 
 <img border="0" alt="Brazil-DF" src="http://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Map_of_Brazil_with_flag.svg/180px-Map_of_Brazil_with_flag.svg.png" height="15%" width="15%"/>
